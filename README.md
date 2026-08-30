@@ -4,7 +4,7 @@ This repository provides the key implementation for the paper:
 
 **Safe Reinforcement Learning with Dual Robustness via Robust Control Barrier Functions**
 
-The currently released code focuses on the **Cartpole** experiment and contains the main components required to reproduce the proposed safe reinforcement learning framework, including the algorithm implementation, network architecture, training pipeline, and safety-critical Cartpole environment.
+The currently released code focuses on the **Cartpole** experiment and contains the main components required to show the proposed safe reinforcement learning framework, including the algorithm implementation, network architecture, training pipeline, and safety-critical Cartpole environment.
 
 > **Code availability.** This repository currently contains the key Cartpole implementation. The implementations for the remaining simulation environments and the physical experimental platform will be released in a public GitHub repository.
 
