@@ -120,7 +120,7 @@ def create_sac_rfsi_net_dr_s(
 
     def multiplier_net_fn(obs):
         x = hk.nets.MLP(list(hidden_sizes), activation=activation)(obs)
-        init_val = 1.0  # 你可以根据环境难度调整初始乘子大小 (例如 0.1 或 1.0)
+        init_val = 0.1
         init_bias = math.log(math.exp(init_val) - 1.0 + 1e-8)
         x = hk.Linear(1,
                       w_init=hk.initializers.RandomUniform(-3e-3, 3e-3),
