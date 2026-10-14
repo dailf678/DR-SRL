@@ -1,0 +1,17 @@
+# Validated CPU stack for Python 3.10 / 3.11. Install GPU JAX separately if desired.
+numpy==1.26.4
+scipy==1.12.0
+jax==0.4.23
+jaxlib==0.4.23
+dm-haiku==0.0.12
+flax==0.8.2
+orbax-checkpoint==0.5.16
+optax==0.1.9
+chex==0.1.86
+numpyro==0.13.2
+gymnasium==0.28.1
+casadi==3.6.7
+pybullet==3.2.7
+matplotlib==3.8.4
+tensorboardX==2.6.2.2
+tensorboard==2.17.1

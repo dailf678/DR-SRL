@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "drsrl-cartpole"
+version = "0.1.0"
+description = "CartPole implementation of Safe Reinforcement Learning with Dual Robustness"
+requires-python = ">=3.10,<3.12"
+readme = "README.md"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["relax*", "safe_env*", "safe_control_gym*", "scripts*"]
+
+[tool.setuptools.package-data]
+safe_control_gym = ["LICENSE", "envs/gym_control/assets/*.urdf"]
