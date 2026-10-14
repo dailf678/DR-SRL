@@ -66,23 +66,3 @@ For a custom destination use `--log_dir /path/to/new/run`; the destination must 
 ```bash
 tensorboard --logdir logs
 ```
-
-## Disturbances and method interpretation
-
-All four methods retain two learned adversaries for collecting transitions under a comparable disturbance environment: each step selects the safety or task adversary with probability 0.5, and each disturbance has magnitude at most 0.2 in the one-dimensional CartPole action space. FRI-Nominal learns and samples both adversaries with amplitude 0.2; its task-policy loss evaluates nominal reward and safety terms without adversarial actions or a Lipschitz margin.
-
-FRI-Lipschitz and FRI-Minimax also use the safety adversary in certificate synthesis; FRI-Nominal retains nominal certificate synthesis. In FRI-Lipschitz task-policy optimization, the reward term uses the task adversary, while the safety constraint uses the adversary-independent Lipschitz margin. The safety adversary is not used in that policy safety term. SAC-Lag's lack of explicit disturbance robustness refers to its safety constraint, not to the absence of disturbed training samples.
-
-This release supplies training and checkpoint validation. It does not supply an experimental evaluation protocol. The CartPole safety bounds match the paper; full agreement of hyperparameters, the fixed input-matrix bound, and supplementary implementation details has not been verified against Table S-I.
-
-## Environment and compatibility changes
-
-`DRSRL-CartPole-v0` is the original continuous-action **PyBullet** environment, rather than Gym's built-in discrete-action CartPole. The state order is `[x, x_dot, theta, theta_dot]`; the normalized nominal action space is `[-1, 1]`. The selected network code retains its additive adversarial action logic. Control and physics frequency are 50 Hz; episodes last at most five seconds (250 steps). Initial `x` is sampled from `[-0.5, 0.5]` and `theta` from `[-0.1, 0.1]`. Safety constraints are `|theta| <= 0.2` and `|theta_dot| <= 0.2`.
-
-The `safe_control_gym/` directory vendors only the local CartPole dependency chain and its URDF. Package initializers no longer import unrelated controllers, quadrotors or Torch. Two NumPy utility functions are extracted unchanged from their original modules. The environment dynamics, rewards, bounds and constraints retain the local implementation.
-
-The environment wrapper returns Gymnasium's `(obs, info)` reset result and `(obs, reward, terminated, truncated, info)` step result. Feasible/infeasible labels use the pre-step state, while constraint costs use the post-step state. The trainer resets on either episode-ending flag and stores `done = terminated or truncated` in replay. Seeds are applied to the environment and its action space. A final checkpoint is written even for short runs.
-
-## Attribution
-
-Shared RL infrastructure is derived from [Feasible-Region-Iteration](https://github.com/yangyujie-jack/Feasible-Region-Iteration). The main method comes from [DR-SRL](https://github.com/dailf678/DR-SRL). The included CartPole environment is a subset of the locally modified [safe-control-gym](https://github.com/utiasDSL/safe-control-gym); its MIT license is retained in `safe_control_gym/LICENSE`. See `THIRD_PARTY_NOTICES.md` for details. This directory does not assign a new license to the authors' method code.
